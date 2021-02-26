@@ -36,6 +36,7 @@ def parse_args():
     parser.add_argument("--load-dir", type=str, default="", help="directory in which training state and model are loaded")
     parser.add_argument("--gpu-frac", type=float, default=0.3, help="Fraction of GPU memory usage.")
     # Evaluation
+    parser.add_argument("--test", action="store_true", default=False)
     parser.add_argument("--restore", action="store_true", default=False)
     parser.add_argument("--display", action="store_true", default=False)
     parser.add_argument("--benchmark", action="store_true", default=False)
