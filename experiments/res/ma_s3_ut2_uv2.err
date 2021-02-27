@@ -1,0 +1,18 @@
+nohup: ignoring input
+2021-02-26 20:24:47.655289: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2021-02-26 20:24:47.807749: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:897] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-26 20:24:47.808554: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1405] Found device 0 with properties: 
+name: Quadro RTX 6000 major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:4b:00.0
+totalMemory: 23.65GiB freeMemory: 15.63GiB
+2021-02-26 20:24:47.808566: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1484] Adding visible gpu devices: 0
+2021-02-26 20:24:48.111450: I tensorflow/core/common_runtime/gpu/gpu_device.cc:965] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-02-26 20:24:48.111498: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971]      0 
+2021-02-26 20:24:48.111503: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] 0:   N 
+2021-02-26 20:24:48.111595: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1097] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7750 MB memory) -> physical GPU (device: 0, name: Quadro RTX 6000, pci bus id: 0000:4b:00.0, compute capability: 7.5)
+Traceback (most recent call last):
+  File "train.py", line 230, in <module>
+    train(arglist)
+  File "train.py", line 220, in train
+    with open(rew_file_name, 'wb') as fp:
+FileNotFoundError: [Errno 2] No such file or directory: './learning_curves/ma_s3_ut2_uv2_rewards.pkl'

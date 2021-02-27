@@ -43,7 +43,7 @@ def parse_args():
     parser.add_argument("--benchmark-dir", type=str, default="./benchmark_files/", help="directory where benchmark data is saved")
     parser.add_argument("--plots-dir", type=str, default="./learning_curves/", help="directory where plot data is saved")
     # Uncertainty 
-    parser.add_argument("--uncertainty-type", type=int, default=0, help="type can be: 0-none, 1-reward, 2-action, 3-observation")
+    parser.add_argument("--uncertainty-type", type=int, default=2, help="type can be: 0-none, 1-reward, 2-action, 3-observation")
     parser.add_argument('--uncertainty-std', type=float, default=1.0, help='{0.0, 1.0, 2.0, 3.0, ...}, uncertainty level')
     return parser.parse_args()
 
