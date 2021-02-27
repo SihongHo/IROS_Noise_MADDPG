@@ -22,8 +22,8 @@ def parse_args():
     parser.add_argument("--max-episode-len", type=int, default=25, help="maximum episode length")
     parser.add_argument("--num-episodes", type=int, default=60000, help="number of episodes")
     parser.add_argument("--num-adversaries", type=int, default=0, help="number of adversaries")
-    parser.add_argument("--good-policy", type=str, default="maddpg", help="policy for good agents")
-    parser.add_argument("--adv-policy", type=str, default="maddpg", help="policy of adversaries")
+    parser.add_argument("--good-policy", type=str, default="mmmddpg", help="policy for good agents")
+    parser.add_argument("--adv-policy", type=str, default="mmmddpg", help="policy of adversaries")
     # Core training parameters
     parser.add_argument("--lr", type=float, default=1e-2, help="learning rate for Adam optimizer")
     parser.add_argument("--gamma", type=float, default=0.95, help="discount factor")
@@ -36,6 +36,7 @@ def parse_args():
     parser.add_argument("--load-dir", type=str, default="", help="directory in which training state and model are loaded")
     parser.add_argument("--gpu-frac", type=float, default=0.3, help="Fraction of GPU memory usage.")
     # Evaluation
+    parser.add_argument("--test", action="store_true", default=False)
     parser.add_argument("--restore", action="store_true", default=False)
     parser.add_argument("--display", action="store_true", default=False)
     parser.add_argument("--benchmark", action="store_true", default=False)
@@ -216,10 +217,19 @@ def train(arglist):
 
             # saves final episode reward for plotting training curve later
             if len(episode_rewards) > arglist.num_episodes:
-                rew_file_name = arglist.plots_dir + arglist.exp_name + '_rewards.pkl'
+                suffix = '_test.pkl' if arglist.test else '.pkl'
+                rew_file_name = arglist.plots_dir + arglist.exp_name + '_rewards' + suffix
+                agrew_file_name = arglist.plots_dir + arglist.exp_name + '_agrewards' + suffix
+
+                if not os.path.exists(os.path.dirname(rew_file_name)):
+                    try:
+                        os.makedirs(os.path.dirname(rew_file_name))
+                    except OSError as exc:
+                        if exc.errno != errno.EEXIST:
+                            raise
+
                 with open(rew_file_name, 'wb') as fp:
                     pickle.dump(final_ep_rewards, fp)
-                agrew_file_name = arglist.plots_dir + arglist.exp_name + '_agrewards.pkl'
                 with open(agrew_file_name, 'wb') as fp:
                     pickle.dump(final_ep_ag_rewards, fp)
                 print('...Finished total of {} episodes.'.format(len(episode_rewards)))
