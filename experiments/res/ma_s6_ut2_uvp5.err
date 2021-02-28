@@ -1,0 +1,8 @@
+nohup: ignoring input
+2021-02-27 20:03:59.094765: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2021-02-27 20:03:59.135504: E tensorflow/stream_executor/cuda/cuda_driver.cc:397] failed call to cuInit: CUresult(804)
+2021-02-27 20:03:59.135551: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:163] retrieving CUDA diagnostic information for host: feiNewML
+2021-02-27 20:03:59.135558: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:170] hostname: feiNewML
+2021-02-27 20:03:59.135596: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:194] libcuda reported version is: 460.56.0
+2021-02-27 20:03:59.135622: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:198] kernel reported version is: 460.39.0
+2021-02-27 20:03:59.135628: E tensorflow/stream_executor/cuda/cuda_diagnostics.cc:308] kernel version 460.39.0 does not match DSO version 460.56.0 -- cannot find working devices in this configuration
