@@ -34,8 +34,9 @@ def parse_args():
     parser.add_argument("--save-dir", type=str, default="/tmp/policy/", help="directory in which training state and model should be saved")
     parser.add_argument("--save-rate", type=int, default=1000, help="save model once every time this many episodes are completed")
     parser.add_argument("--load-dir", type=str, default="", help="directory in which training state and model are loaded")
-    parser.add_argument("--gpu-frac", type=float, default=0.3, help="Fraction of GPU memory usage.")
+    parser.add_argument("--gpu-frac", type=float, default=0.32, help="Fraction of GPU memory usage.")
     # Evaluation
+    parser.add_argument("--test", action="store_true", default=False)
     parser.add_argument("--restore", action="store_true", default=False)
     parser.add_argument("--display", action="store_true", default=False)
     parser.add_argument("--benchmark", action="store_true", default=False)
@@ -216,10 +217,19 @@ def train(arglist):
 
             # saves final episode reward for plotting training curve later
             if len(episode_rewards) > arglist.num_episodes:
-                rew_file_name = arglist.plots_dir + arglist.exp_name + '_rewards.pkl'
+                suffix = '_test.pkl' if arglist.test else '.pkl'
+                rew_file_name = arglist.plots_dir + arglist.exp_name + '_rewards' + suffix
+                agrew_file_name = arglist.plots_dir + arglist.exp_name + '_agrewards' + suffix
+
+                if not os.path.exists(os.path.dirname(rew_file_name)):
+                    try:
+                        os.makedirs(os.path.dirname(rew_file_name))
+                    except OSError as exc:
+                        if exc.errno != errno.EEXIST:
+                            raise
+
                 with open(rew_file_name, 'wb') as fp:
                     pickle.dump(final_ep_rewards, fp)
-                agrew_file_name = arglist.plots_dir + arglist.exp_name + '_agrewards.pkl'
                 with open(agrew_file_name, 'wb') as fp:
                     pickle.dump(final_ep_ag_rewards, fp)
                 print('...Finished total of {} episodes.'.format(len(episode_rewards)))
